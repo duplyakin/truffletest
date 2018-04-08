@@ -1,5 +1,8 @@
 pragma solidity ^0.4.17;
 
+
+import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
+
 contract iVersionable {
 
     function iVersionable(  uint64 _version,
@@ -71,9 +74,17 @@ contract iBaseHolder{
 
 }
 
-contract Storage{
+contract Storage is Ownable{
+  function Storage() public Ownable(){
+      owner=msg.sender;
+  }
   mapping (uint256 => iBaseHolder) holdersByType;
-
+  function getLatestCreator(string contractType) external view returns (iCreator _creator){
+     return holdersByType[ uint256(keccak256(contractType))].getLatestCreator();
+  }
+  function addHolder(string contractType,iBaseHolder holder) public onlyOwner{
+     holdersByType[uint256(keccak256(contractType))]=holder;
+  }
 }
 
 contract iCreator is iVersionable{
