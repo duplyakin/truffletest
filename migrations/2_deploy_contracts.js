@@ -1,5 +1,5 @@
 
-module.exports = function(deployer) {
+module.exports = function(deployer, network, accounts) {
 
 
   var safeMath= artifacts.require("SafeMath");
@@ -13,7 +13,6 @@ module.exports = function(deployer) {
   var iVersionable=artifacts.require("iVersionable");
   deployer.deploy(safeMath);
   deployer.link(safeMath,[iVersionable,iBaseHolder,myStorage]);
-
   deployer.deploy(myStorage);
   deployer.deploy(iBaseHolder);
 
@@ -32,13 +31,14 @@ module.exports = function(deployer) {
   return  storage.addHolder("token",holder.address);
 
 }).then(function() {
-  deployer.deploy(SampleTokenCreator,holder.address);
+  //holder.address
+deployer.deploy(SampleTokenCreator,holder.address,2, {gas: 10000000, from: accounts[0]});
 return SampleTokenCreator.deployed();
 }).then(function(instance) {
 //  a = instance;
   //holder = instance;
-
-  return  storage.addHolder("token",holder.address);
+  holder.updateCreator(instance.address);
+  //return  storage.addHolder("token",holder.address);
 
 });
 

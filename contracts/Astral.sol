@@ -2,13 +2,14 @@ pragma solidity ^0.4.17;
 
 
 import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "../node_modules/zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 
 contract iVersionable {
 
     function iVersionable(  uint64 _version,
-      iBaseHolder _holder) public {
+      address _holder) public {
         version = _version;
-        holder = _holder;
+        holder =iBaseHolder( _holder);
       //  successor.setVersion(0);
       }
 
@@ -42,11 +43,12 @@ contract iBaseHolder{
     mapping (uint64 => mapping (address => address)) allDocuments;
 
     uint64 private newestVersion;
-    function updateCreator(iCreator anotherCreator) public {
-        uint64 _creatorVersion=anotherCreator.getVersion();
+    function updateCreator(address anotherCreator) public {
+        iCreator crt = iCreator(anotherCreator);
+        uint64 _creatorVersion=crt.getVersion();
         require(_creatorVersion>newestVersion/*,'iCreator is too old, try newer one'*/);
-        anotherCreator.setHolder(this);
-        iCreators[_creatorVersion]=anotherCreator;
+        crt.setHolder(this);
+        iCreators[_creatorVersion]=crt;
         newestVersion=_creatorVersion;
 
     }
@@ -79,17 +81,19 @@ contract Storage is Ownable{
       owner=msg.sender;
   }
   mapping (uint256 => iBaseHolder) holdersByType;
+
   function getLatestCreator(string contractType) external view returns (iCreator _creator){
      return holdersByType[ uint256(keccak256(contractType))].getLatestCreator();
   }
-  function addHolder(string contractType,iBaseHolder holder) public onlyOwner{
-     holdersByType[uint256(keccak256(contractType))]=holder;
+  function addHolder(string contractType,address holder) public {
+     iBaseHolder realHolder = iBaseHolder(holder);
+     holdersByType[uint256(keccak256(contractType))]=realHolder;
   }
 }
 
 contract iCreator is iVersionable{
 
-    function iCreator(iBaseHolder _holder)public iVersionable(1,_holder){
+    function iCreator(address _holder,uint64 version)public iVersionable(version,_holder){
 
     }
 
@@ -127,4 +131,38 @@ contract iDocument is iVersionable {
            holder.registerDocument(_newOwner, _newDoc);
     }
 
+}
+
+contract SampleToken is MintableToken,iDocument {
+
+function SampleToken(address _owner,iBaseHolder _daoCreator ) public iDocument(_owner,_daoCreator){
+      version=2;
+}
+
+  string public name = "SampleToken";
+  string public symbol = "SMT";
+  uint256 public decimals = 18;
+
+}
+
+
+
+contract SampleTokenCreator is iCreator{
+
+    function SampleTokenCreator(address _holder,uint64 _version) public iCreator(_holder,_version){
+    }
+
+    function createDocument(
+        address _curator
+    ) returns (iDocument _newDocument) {
+
+     /*   dao.push( new DAO(
+            _curator,
+            this
+        ));
+        _newDAO = dao[lastContractId];
+        lastContractId++;*/
+        _newDocument = new SampleToken(_curator,getHolder());
+
+    }
 }
