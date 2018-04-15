@@ -30,13 +30,11 @@ module.exports = function(deployer, network, accounts) {
 
 }).then(function() {
   //holder.address
-  deployer.deploy(SampleTokenCreator,holder.address,2, { from: accounts[0]});
-  setTimeout(function() {
-    stc= SampleTokenCreator.deployed();
-  }, 5000);
-});/*.then(function() {
-  return SampleTokenCreator.deployed();
-});*/
+  return SampleTokenCreator.new(holder.address,2, { from: accounts[0]});
+
+}).then(function(instance) {
+  return holder.updateCreator(instance.address);
+});
 
 
 

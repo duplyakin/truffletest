@@ -6,10 +6,10 @@ import "../node_modules/zeppelin-solidity/contracts/token/ERC20/MintableToken.so
 
 contract iVersionable {
 
-    function iVersionable(  uint64 _version,
-      address _holder) public {
+    function iVersionable(   iBaseHolder _holder, uint64 _version
+    ) public {
         version = _version;
-        holder =iBaseHolder( _holder);
+        holder = _holder;
       //  successor.setVersion(0);
       }
 
@@ -85,20 +85,19 @@ contract Storage is Ownable{
   function getLatestCreator(string contractType) external view returns (iCreator _creator){
      return holdersByType[ uint256(keccak256(contractType))].getLatestCreator();
   }
-  function addHolder(string contractType,address holder) public {
-     iBaseHolder realHolder = iBaseHolder(holder);
-     holdersByType[uint256(keccak256(contractType))]=realHolder;
+  function addHolder(string contractType,iBaseHolder holder) public {
+     holdersByType[uint256(keccak256(contractType))]=holder;
   }
 }
 
 contract iCreator is iVersionable{
 
-    function iCreator(address _holder,uint64 version)public iVersionable(version,_holder){
+    function iCreator(iBaseHolder _holder,uint64 version)public iVersionable(_holder,version){
 
     }
 
     function createDocument(address _curator ) public returns (iDocument _newDocument) {
-        _newDocument = new iDocument(_curator,getHolder());
+        _newDocument = new iDocument(_curator,this);
 
     }
 }
@@ -106,7 +105,7 @@ contract iCreator is iVersionable{
 contract iDocument is iVersionable {
     address public  owner;
 
-    function iDocument(address _owner, address _creator) public iVersionable(1,_creator) {
+    function iDocument(address _owner, iCreator _creator) public iVersionable(_creator.getHolder(),1) {
         iCreator crt1232 = iCreator(_creator);
         owner=_owner;
     }
@@ -136,7 +135,7 @@ contract iDocument is iVersionable {
 
 contract SampleToken is iDocument {
 
-function SampleToken(address _owner,address _daoCreator ) public iDocument(_owner,_daoCreator){
+function SampleToken(address _owner,iCreator _creator ) public iDocument(_owner,_creator){
       setVersion(2);
 }
 
@@ -150,12 +149,12 @@ function SampleToken(address _owner,address _daoCreator ) public iDocument(_owne
 
 contract SampleTokenCreator is iCreator{
 
-    function SampleTokenCreator(address _holder,uint64 _version) public iCreator(_holder,_version){
+    function SampleTokenCreator(iBaseHolder _holder,uint64 _version) public iCreator(_holder,_version){
     }
 
     function createDocument(
         address _curator
     ) returns (iDocument _newDocument) {
-      //  _newDocument = new SampleToken(_curator,getHolder());
+        _newDocument = new SampleToken(_curator,this);
     }
 }
