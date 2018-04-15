@@ -106,7 +106,8 @@ contract iCreator is iVersionable{
 contract iDocument is iVersionable {
     address public  owner;
 
-    function iDocument(address _owner, iBaseHolder _daoCreator) public iVersionable(1,_daoCreator) {
+    function iDocument(address _owner, address _creator) public iVersionable(1,_creator) {
+        iCreator crt1232 = iCreator(_creator);
         owner=_owner;
     }
 
@@ -133,10 +134,10 @@ contract iDocument is iVersionable {
 
 }
 
-contract SampleToken is MintableToken,iDocument {
+contract SampleToken is iDocument {
 
-function SampleToken(address _owner,iBaseHolder _daoCreator ) public iDocument(_owner,_daoCreator){
-      version=2;
+function SampleToken(address _owner,address _daoCreator ) public iDocument(_owner,_daoCreator){
+      setVersion(2);
 }
 
   string public name = "SampleToken";
@@ -155,14 +156,6 @@ contract SampleTokenCreator is iCreator{
     function createDocument(
         address _curator
     ) returns (iDocument _newDocument) {
-
-     /*   dao.push( new DAO(
-            _curator,
-            this
-        ));
-        _newDAO = dao[lastContractId];
-        lastContractId++;*/
-        _newDocument = new SampleToken(_curator,getHolder());
-
+      //  _newDocument = new SampleToken(_curator,getHolder());
     }
 }

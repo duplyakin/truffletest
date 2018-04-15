@@ -17,31 +17,37 @@ module.exports = function(deployer, network, accounts) {
   deployer.deploy(iBaseHolder);
 
   var storage,holder;
+  var stc;
   deployer.then(function() {
   return myStorage.deployed();
 }).then(function(instance) {
-//  a = instance;
-  storage = instance
+  storage = instance;
   return iBaseHolder.deployed();
 
 }).then(function(instance) {
-//  a = instance;
   holder = instance;
-
   return  storage.addHolder("token",holder.address);
 
 }).then(function() {
   //holder.address
-deployer.deploy(SampleTokenCreator,holder.address,2, {gas: 10000000, from: accounts[0]});
-return SampleTokenCreator.deployed();
-}).then(function(instance) {
+  deployer.deploy(SampleTokenCreator,holder.address,2, { from: accounts[0]});
+  setTimeout(function() {
+    stc= SampleTokenCreator.deployed();
+  }, 5000);
+});/*.then(function() {
+  return SampleTokenCreator.deployed();
+});*/
+
+
+
+/*
+deployer.then(function(instance) {
 //  a = instance;
   //holder = instance;
   holder.updateCreator(instance.address);
   //return  storage.addHolder("token",holder.address);
 
-});
-
+}*/
 /*  deployer.then(function(){
     return myStorage.new();
   })*/
