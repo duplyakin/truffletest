@@ -47,13 +47,13 @@ contract SampleTokenBuilder is iDocumentBuilder{
   function getDecimals() constant onlyOwner public returns (uint256){
     return decimals;
   }
-  function setName(string _name) onlyOwner public{
+  function setName(string _name) onlyOwner whileNotCreated public{
     name=_name;
   }
-  function setSymbol(string _symbol) onlyOwner public{
+  function setSymbol(string _symbol) onlyOwner whileNotCreated public{
     symbol=_symbol;
   }
-  function setDecimals(uint256 _decimals) onlyOwner public{
+  function setDecimals(uint256 _decimals) onlyOwner whileNotCreated public{
     decimals=_decimals;
   }
   function build() public onlyOwner whileNotCreated setCreatedOnSuccess returns (iDocument _doc) {
@@ -64,32 +64,41 @@ contract SampleTokenBuilder is iDocumentBuilder{
 }
 
 
-contract SampleContract is iDocument, Crowdsale {
 
-  function SampleContract(address _owner, iCreator _creator ) public iDocument(_owner, _creator) {
-        setVersion(2);
-  }
-
-
-}
 
 
 contract IncreasingPriceCrowdsale is iDocument,TimedCrowdsale {
  using SafeMath for uint256;
 
- uint256 public initialRate;
- uint256 public finalRate;
 
+ uint256 public rates[];
  /**
   * @dev Constructor, takes intial and final rates of tokens received per wei contributed.
   * @param _initialRate Number of tokens a buyer gets per wei at the start of the crowdsale
   * @param _finalRate Number of tokens a buyer gets per wei at the end of the crowdsale
   */
- function IncreasingPriceCrowdsale(uint256 _initialRate, uint256 _finalRate) public {
-   require(_initialRate >= _finalRate);
-   require(_finalRate > 0);
-   initialRate = _initialRate;
-   finalRate = _finalRate;
+ function IncreasingPriceCrowdsale(address _owner, iCreator _creator) public iDocument(_owner,_creator){
+
+ }
+
+ function setOpeningTime(uint256 _openingTime) public onlyOwner{
+   require(rates.length = 0);
+   openingTime=_openingTime;
+ }
+
+
+ function setRate(uint256[] _rates) public onlyOwner returns (uint256 len ){
+   require(openingTime>0);
+   rates = _rates[];
+   len =rates.length;
+   closingTime=openingTime.add(len.mul(60*60*24*7));
+   return rates.length;
+ }
+ function setToken(ERC20 _token) public onlyOwner{
+  token=_token;
+ }
+ function setWallet(address _wallet) public onlyOwner{
+  wallet=_wallet;
  }
 
  /**
@@ -99,9 +108,9 @@ contract IncreasingPriceCrowdsale is iDocument,TimedCrowdsale {
   */
  function getCurrentRate() public view returns (uint256) {
    uint256 elapsedTime = now.sub(openingTime);
-   uint256 timeRange = closingTime.sub(openingTime);
-   uint256 rateRange = initialRate.sub(finalRate);
-   return initialRate.sub(elapsedTime.mul(rateRange).div(timeRange));
+   uint256 weekNumber = elapsedTime.div(60*60*24*7);
+   require(weekNumber < rates.length);
+   return rates[weekNumber];
  }
 
  /**
@@ -114,4 +123,75 @@ contract IncreasingPriceCrowdsale is iDocument,TimedCrowdsale {
    return currentRate.mul(_weiAmount);
  }
 
+}
+
+
+
+contract IncreasingPriceCrowdsaleCreator is iCreator{
+
+    function IncreasingPriceCrowdsaleCreator(iBaseHolder _holder, uint64 _version) public iCreator(_holder, _version) {
+    }
+
+    function createDocumentBuilder (address _curator) public returns (iDocumentBuilder _newDocumentBuilder) {
+        _newDocumentBuilder = new SampleTokenBuilder(_curator,this);
+    }
+}
+
+contract IncreasingPriceCrowdsaleBuilder is iDocumentBuilder{
+
+  ERC20 internal token;
+  address internal wallet;
+  uint256 internal openingTime;
+//  uint256 internal closingTime;
+
+  uint256 rate[];// index = week, value = rate;
+
+  function resetRates() public onlyOwner whileNotCreated{
+    rate.length=0;
+  }
+  function nextWeekRate(uint256 nwr) public onlyOwner whileNotCreated returns(uint32 _weekNumber) {
+    _weekNumber=rate.append(nwr);
+  }
+
+  function getToken() constant onlyOwner public returns (ERC20){
+    return token;
+  }
+  function getWallet() constant onlyOwner public returns (address){
+    return wallet;
+  }
+  function getOpeningTime() constant onlyOwner public returns (uint256){
+    return openingTime;
+  }
+  function getRates() constant onlyOwner public returns (uint256[]){
+    return rate;
+  }
+
+  function setToken(ERC20 _token) onlyOwner whileNotCreated public{
+    token=_token;
+  }
+  function setWallet(address _wallet) onlyOwner whileNotCreated public{
+    wallet=_wallet;
+  }
+  function setOpeningTime(uint256 _openingTime) onlyOwner whileNotCreated public{
+    openingTime=_openingTime;
+  }
+
+
+  function IncreasingPriceCrowdsaleBuilder  (address _curator, iCreator _creator) public iDocumentBuilder(_curator,_creator){
+
+  }
+
+  function build() public onlyOwner whileNotCreated setCreatedOnSuccess returns (iDocument _doc) {
+    require(bytes(token).length>0);
+    require(wallet!=address(0));
+    require(rate.length>0);
+    require(openingTime>now);
+  //  uint64 closingTime = openingTime+(rate.length* 60*60*24*7);
+    _doc= new IncreasingPriceCrowdsale(owner,creator);
+    _doc.setToken(token);
+    _doc.setOpeningTime(openingTime);
+    _doc.setRate(rate);
+    _doc.setWallet(wallet);
+    creator.getHolder().registerDocument(owner,_doc);
+  }
 }
