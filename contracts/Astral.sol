@@ -9,12 +9,11 @@ contract iVersionable {
     ) public {
         version = _version;
         holder = _holder;
-      //  successor.setVersion(0);
       }
 
     uint64 public version;
     iBaseHolder public holder;
-    iVersionable public successor;
+
 
     function getVersion() public view returns (uint64 _version){
         _version=version;
@@ -89,14 +88,41 @@ contract Storage is Ownable{
   }
 }
 
+// builder for contract.
+contract iDocumentBuilder is Ownable {
+  iCreator creator;
+  bool isCreated = false;
+  function iDocumentBuilder  (address _curator, iCreator _creator)public{
+    owner = _curator;
+    creator= _creator;
+  }
+
+  modifier whileNotCreated(){
+    require(isCreated == false);
+       _;
+  }
+
+  modifier setCreatedOnSuccess(){
+       _;
+       isCreated=true;
+  }
+
+  function build() public onlyOwner whileNotCreated setCreatedOnSuccess returns (iDocument doc) {
+    return new iDocument(owner, creator);
+  }
+
+
+
+}
+// this class should be only one for contract version
 contract iCreator is iVersionable{
 
     function iCreator(iBaseHolder _holder,uint64 version)public iVersionable(_holder,version){
 
     }
 
-    function createDocument(address _curator ) public returns (iDocument _newDocument) {
-        _newDocument = new iDocument(_curator,this);
+    function createDocumentBuilder(address _curator ) public returns (iDocumentBuilder _newDocumentBuilder) {
+        _newDocumentBuilder = new iDocumentBuilder(_curator,this);
 
     }
 }
@@ -105,29 +131,27 @@ contract iDocument is iVersionable {
     address public  owner;
 
     function iDocument(address _owner, iCreator _creator) public iVersionable(_creator.getHolder(),1) {
-        iCreator crt1232 = iCreator(_creator);
+      //  iCreator crt1232 = iCreator(_creator);
         owner=_owner;
     }
 
-    function wantSameContract(  address _newOwner) public returns (iDocument _successor) {
-        if(successor.getVersion()==0){
-            iDocument newDoc = createNewDoc(_newOwner);
-            successor=newDoc;
-            _successor=newDoc;
-        }
+    function wantSameContract(  address _newOwner) public returns (iDocumentBuilder _newDoc) {
+
+            _newDoc = createNewDoc(_newOwner);
+
     }
 
     function getOwner() public view returns  (address _owner){
         _owner=owner;
     }
 
-    function createNewDoc(address _newOwner) internal returns (iDocument _newDoc) {
+    function createNewDoc(address _newOwner) internal returns (iDocumentBuilder _newDoc) {
        iBaseHolder holder = getHolder();
 
        iCreator creator = holder.getLatestCreator();
 
-        _newDoc =creator.createDocument(_newOwner);
-           holder.registerDocument(_newOwner, _newDoc);
+        _newDoc =creator.createDocumentBuilder(_newOwner);
+      //     holder.registerDocument(_newOwner, _newDoc);
     }
 
 }
