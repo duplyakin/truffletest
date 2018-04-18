@@ -1,3 +1,4 @@
+pragma solidity ^0.4.18;
 import "../node_modules/zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 import "../node_modules/zeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
 import "../node_modules/zeppelin-solidity/contracts/crowdsale/validation/TimedCrowdsale.sol";
@@ -67,39 +68,38 @@ contract SampleTokenBuilder is iDocumentBuilder{
 
 
 
-contract IncreasingPriceCrowdsale is iDocument,TimedCrowdsale {
+contract IncreasingPriceCrowdsale is Ownable ,iDocument,TimedCrowdsale {
  using SafeMath for uint256;
 
 
- uint256 public rates[];
+ uint256[]  public rates ;
  /**
   * @dev Constructor, takes intial and final rates of tokens received per wei contributed.
-  * @param _initialRate Number of tokens a buyer gets per wei at the start of the crowdsale
-  * @param _finalRate Number of tokens a buyer gets per wei at the end of the crowdsale
-  */
- function IncreasingPriceCrowdsale(address _owner, iCreator _creator) public iDocument(_owner,_creator){
-
+    */
+ function IncreasingPriceCrowdsale(address _owner, iCreator _creator,uint256 _openingTime,uint256 _closingTime,uint256[] _rates,address _wallet, ERC20 _token) public iDocument(_owner,_creator) TimedCrowdsale(_openingTime,_closingTime) Crowdsale(1,  _wallet,  _token){
+   owner = _owner;
+    rates = _rates;
  }
 
- function setOpeningTime(uint256 _openingTime) public onlyOwner{
+ /*function setOpeningTime(uint256 _openingTime)  public onlyOwner{
    require(rates.length = 0);
    openingTime=_openingTime;
- }
+ }*/
 
 
- function setRate(uint256[] _rates) public onlyOwner returns (uint256 len ){
+ /*function setRate(uint256[] _rates)  public onlyOwner returns (uint256 len ){
    require(openingTime>0);
    rates = _rates[];
    len =rates.length;
    closingTime=openingTime.add(len.mul(60*60*24*7));
    return rates.length;
- }
- function setToken(ERC20 _token) public onlyOwner{
+ }*/
+ /*function setToken(ERC20 _token) public onlyOwner {
   token=_token;
  }
- function setWallet(address _wallet) public onlyOwner{
+ function setWallet(address _wallet) public onlyOwner {
   wallet=_wallet;
- }
+ }*/
 
  /**
   * @dev Returns the rate of tokens per wei at the present time.
@@ -144,13 +144,13 @@ contract IncreasingPriceCrowdsaleBuilder is iDocumentBuilder{
   uint256 internal openingTime;
 //  uint256 internal closingTime;
 
-  uint256 rate[];// index = week, value = rate;
+  uint256[] rate;// index = week, value = rate;
 
   function resetRates() public onlyOwner whileNotCreated{
     rate.length=0;
   }
-  function nextWeekRate(uint256 nwr) public onlyOwner whileNotCreated returns(uint32 _weekNumber) {
-    _weekNumber=rate.append(nwr);
+  function nextWeekRate(uint256 nwr) public onlyOwner whileNotCreated returns(uint256 _weekNumber) {
+    _weekNumber=rate.push(nwr);
   }
 
   function getToken() constant onlyOwner public returns (ERC20){
@@ -182,16 +182,17 @@ contract IncreasingPriceCrowdsaleBuilder is iDocumentBuilder{
   }
 
   function build() public onlyOwner whileNotCreated setCreatedOnSuccess returns (iDocument _doc) {
-    require(bytes(token).length>0);
+    require(address(token)!=address(0));
     require(wallet!=address(0));
     require(rate.length>0);
     require(openingTime>now);
-  //  uint64 closingTime = openingTime+(rate.length* 60*60*24*7);
-    _doc= new IncreasingPriceCrowdsale(owner,creator);
-    _doc.setToken(token);
-    _doc.setOpeningTime(openingTime);
-    _doc.setRate(rate);
-    _doc.setWallet(wallet);
+    uint256 closingTime = openingTime+(rate.length* 60*60*24*7);
+    IncreasingPriceCrowdsale ipc= new IncreasingPriceCrowdsale(owner,creator,openingTime,closingTime,rate,wallet,token);
+  //  ipc.setToken(token);
+  //  ipc.setOpeningTime(openingTime);
+  //  ipc.setRate(rate);
+  //  ipc.setWallet(wallet);
+    _doc=ipc;
     creator.getHolder().registerDocument(owner,_doc);
   }
 }

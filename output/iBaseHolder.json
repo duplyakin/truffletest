@@ -121,7 +121,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 423,
-        "sourceUnit": 1221,
+        "sourceUnit": 1475,
         "src": "30:75:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1279,7 +1279,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "1128:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -1314,7 +1314,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1759,
+                        "referencedDeclaration": 2013,
                         "src": "1232:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_iBaseHolder_$204",
@@ -1615,7 +1615,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "1423:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2127,7 +2127,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "1846:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2389,7 +2389,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "2075:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -2583,10 +2583,10 @@
               "id": 205,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1220,
+              "referencedDeclaration": 1474,
               "src": "2209:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1220",
+                "typeIdentifier": "t_contract$_Ownable_$1474",
                 "typeString": "contract Ownable"
               }
             },
@@ -2596,7 +2596,7 @@
           }
         ],
         "contractDependencies": [
-          1220
+          1474
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -2604,7 +2604,7 @@
         "id": 258,
         "linearizedBaseContracts": [
           258,
-          1220
+          1474
         ],
         "name": "Storage",
         "nodeType": "ContractDefinition",
@@ -2629,7 +2629,7 @@
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1168,
+                      "referencedDeclaration": 1422,
                       "src": "2265:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2646,7 +2646,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1744,
+                        "referencedDeclaration": 1998,
                         "src": "2271:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2693,10 +2693,10 @@
                   "name": "Ownable",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1220,
+                  "referencedDeclaration": 1474,
                   "src": "2247:7:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_Ownable_$1220_$",
+                    "typeIdentifier": "t_type$_t_contract$_Ownable_$1474_$",
                     "typeString": "type(contract Ownable)"
                   }
                 },
@@ -2831,7 +2831,7 @@
                                 "name": "keccak256",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1738,
+                                "referencedDeclaration": 1992,
                                 "src": "2470:9:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -3076,7 +3076,7 @@
                               "name": "keccak256",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1738,
+                              "referencedDeclaration": 1992,
                               "src": "2620:9:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -3264,10 +3264,10 @@
               "id": 259,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1220,
+              "referencedDeclaration": 1474,
               "src": "2720:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1220",
+                "typeIdentifier": "t_contract$_Ownable_$1474",
                 "typeString": "contract Ownable"
               }
             },
@@ -3278,7 +3278,7 @@
         ],
         "contractDependencies": [
           422,
-          1220
+          1474
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -3286,7 +3286,7 @@
         "id": 318,
         "linearizedBaseContracts": [
           318,
-          1220
+          1474
         ],
         "name": "iDocumentBuilder",
         "nodeType": "ContractDefinition",
@@ -3382,7 +3382,7 @@
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1168,
+                      "referencedDeclaration": 1422,
                       "src": "2858:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -3615,7 +3615,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "2943:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -3751,7 +3751,7 @@
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1168,
+                        "referencedDeclaration": 1422,
                         "src": "3192:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -3842,7 +3842,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1194,
+                  "referencedDeclaration": 1448,
                   "src": "3094:9:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -4167,7 +4167,7 @@
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1765,
+                          "referencedDeclaration": 2019,
                           "src": "3595:4:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_iCreator_$349",
@@ -5271,7 +5271,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 423,
-        "sourceUnit": 1221,
+        "sourceUnit": 1475,
         "src": "30:75:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -6429,7 +6429,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "1128:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -6464,7 +6464,7 @@
                         "name": "this",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1759,
+                        "referencedDeclaration": 2013,
                         "src": "1232:4:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_contract$_iBaseHolder_$204",
@@ -6765,7 +6765,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "1423:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -7277,7 +7277,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "1846:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -7539,7 +7539,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "2075:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -7733,10 +7733,10 @@
               "id": 205,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1220,
+              "referencedDeclaration": 1474,
               "src": "2209:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1220",
+                "typeIdentifier": "t_contract$_Ownable_$1474",
                 "typeString": "contract Ownable"
               }
             },
@@ -7746,7 +7746,7 @@
           }
         ],
         "contractDependencies": [
-          1220
+          1474
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -7754,7 +7754,7 @@
         "id": 258,
         "linearizedBaseContracts": [
           258,
-          1220
+          1474
         ],
         "name": "Storage",
         "nodeType": "ContractDefinition",
@@ -7779,7 +7779,7 @@
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1168,
+                      "referencedDeclaration": 1422,
                       "src": "2265:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -7796,7 +7796,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1744,
+                        "referencedDeclaration": 1998,
                         "src": "2271:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -7843,10 +7843,10 @@
                   "name": "Ownable",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1220,
+                  "referencedDeclaration": 1474,
                   "src": "2247:7:0",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_type$_t_contract$_Ownable_$1220_$",
+                    "typeIdentifier": "t_type$_t_contract$_Ownable_$1474_$",
                     "typeString": "type(contract Ownable)"
                   }
                 },
@@ -7981,7 +7981,7 @@
                                 "name": "keccak256",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1738,
+                                "referencedDeclaration": 1992,
                                 "src": "2470:9:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -8226,7 +8226,7 @@
                               "name": "keccak256",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1738,
+                              "referencedDeclaration": 1992,
                               "src": "2620:9:0",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_function_sha3_pure$__$returns$_t_bytes32_$",
@@ -8414,10 +8414,10 @@
               "id": 259,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1220,
+              "referencedDeclaration": 1474,
               "src": "2720:7:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1220",
+                "typeIdentifier": "t_contract$_Ownable_$1474",
                 "typeString": "contract Ownable"
               }
             },
@@ -8428,7 +8428,7 @@
         ],
         "contractDependencies": [
           422,
-          1220
+          1474
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -8436,7 +8436,7 @@
         "id": 318,
         "linearizedBaseContracts": [
           318,
-          1220
+          1474
         ],
         "name": "iDocumentBuilder",
         "nodeType": "ContractDefinition",
@@ -8532,7 +8532,7 @@
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1168,
+                      "referencedDeclaration": 1422,
                       "src": "2858:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -8765,7 +8765,7 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1747,
+                      "referencedDeclaration": 2001,
                       "src": "2943:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -8901,7 +8901,7 @@
                         "name": "owner",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1168,
+                        "referencedDeclaration": 1422,
                         "src": "3192:5:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -8992,7 +8992,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1194,
+                  "referencedDeclaration": 1448,
                   "src": "3094:9:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -9317,7 +9317,7 @@
                           "name": "this",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1765,
+                          "referencedDeclaration": 2019,
                           "src": "3595:4:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_contract$_iCreator_$349",
@@ -10399,10 +10399,10 @@
     "1523778979435": {
       "events": {},
       "links": {},
-      "address": "0xd6b28fc4f54c841310d26148a687977536044315",
-      "transactionHash": "0x0aa2184cc94e22f773b625ff8774ab8620e0224868ba1fbd7bfad5192230b2cc"
+      "address": "0x117a23369e8721e34c4c5575ed0176cd7e8100b9",
+      "transactionHash": "0x037fd4b90d1e325be10a9a64f587eb86e2fcc229ed36595c974267eaf66afb21"
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-04-16T19:12:06.937Z"
+  "updatedAt": "2018-04-18T20:41:35.224Z"
 }
